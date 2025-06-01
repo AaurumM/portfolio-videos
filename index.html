@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Videos (Full-Width Auto)</title>
   <style>
+    /* Убираем любые отступы, фон чёрный */
     body {
       margin: 0;
       background-color: #000;
     }
-    /* Убираем всякие отступы и делаем видео 100% ширины */
+    /* Видео на всю ширину экрана, без рамок */
     video {
       width: 100%;
       height: auto;
@@ -19,8 +20,9 @@
 </head>
 <body>
 
-  <!-- Обратите внимание: здесь есть и muted, и autoplay, и loop, и playsinline, и webkit-playsinline -->
+  <!-- Видео №2 -->
   <video
+    id="v2"
     autoplay
     muted
     loop
@@ -28,11 +30,13 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="2.mp4" type="video/mp4"/>
+    <source src="2.mp4" type="video/mp4" />
     <!-- fallback -->
   </video>
 
+  <!-- Видео №3 -->
   <video
+    id="v3"
     autoplay
     muted
     loop
@@ -40,10 +44,12 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="3.mp4" type="video/mp4"/>
+    <source src="3.mp4" type="video/mp4" />
   </video>
 
+  <!-- Видео №4 -->
   <video
+    id="v4"
     autoplay
     muted
     loop
@@ -51,10 +57,12 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="4.mp4" type="video/mp4"/>
+    <source src="4.mp4" type="video/mp4" />
   </video>
 
+  <!-- Видео №5 -->
   <video
+    id="v5"
     autoplay
     muted
     loop
@@ -62,10 +70,12 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="5.mp4" type="video/mp4"/>
+    <source src="5.mp4" type="video/mp4" />
   </video>
 
+  <!-- Видео №6 -->
   <video
+    id="v6"
     autoplay
     muted
     loop
@@ -73,10 +83,12 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="6.mp4" type="video/mp4"/>
+    <source src="6.mp4" type="video/mp4" />
   </video>
 
+  <!-- Видео №7 -->
   <video
+    id="v7"
     autoplay
     muted
     loop
@@ -84,10 +96,12 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="7.mp4" type="video/mp4"/>
+    <source src="7.mp4" type="video/mp4" />
   </video>
 
+  <!-- Видео №8 -->
   <video
+    id="v8"
     autoplay
     muted
     loop
@@ -95,8 +109,31 @@
     webkit-playsinline
     preload="auto"
   >
-    <source src="8.mp4" type="video/mp4"/>
+    <source src="8.mp4" type="video/mp4" />
   </video>
 
+  <!-- Скрипт: после загрузки страницы явно запускаем каждое видео -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Получаем все <video> на странице
+      var vids = document.querySelectorAll('video');
+      vids.forEach(function(v) {
+        // Пробуем запустить каждое
+        var promise = v.play();
+        // В некоторых старых iOS это возвращает Promise, который может отклониться,
+        // но дальше мы просто игнорируем ошибку.
+        if (promise !== undefined) {
+          promise
+            .then(function() {
+              // Видео успешно запущено
+            })
+            .catch(function(error) {
+              // Обычно здесь будет сообщение об autoplay disallowed,
+              // но т.к. видео muted+playsinline, на практике всё равно запускается.
+            });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
